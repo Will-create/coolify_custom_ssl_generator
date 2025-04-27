@@ -1,0 +1,4 @@
+name          : Custom ssl Generator for coolify applications
+cert_dirs     : /Users/louisbertson/Desktop/coolify/certs
+email         : louisbertson@gmail.com
+rename        : true 
