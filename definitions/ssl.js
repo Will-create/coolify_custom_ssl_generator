@@ -12,7 +12,6 @@ FUNC.generate_ssl = async function(domain) {
                 resolve(0);
             } else {
                 console.log(`SSL generated for ${domain}`);
-
                 SHELL(`cp /etc/letsencrypt/live/${domain}/fullchain.pem ${CONF.cert_dirs}/${domain}.cert`,NOOP);
                 SHELL(`cp /etc/letsencrypt/live/${domain}/privkey.pem ${CONF.cert_dirs}/${domain}.key`,NOOP);
                 resolve(1);

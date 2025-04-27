@@ -24,6 +24,11 @@ async function generate($) {
 
     // Call synchronous FUNC.generate_ssl( domaine ) function to generate SSL certificate
     var result = await FUNC.generate_ssl(domain);
-
-
+    if (result == 0) {
+        $.invalid('Error generating SSL certificate');
+        return;
+    } else {
+        $.success('SSL certificate generated successfully');
+        return;
+    }
 }
