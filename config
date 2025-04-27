@@ -1,4 +1,4 @@
-name          : Custom ssl Generator for coolify applications
-cert_dirs   (env)  : /data/coolify/proxy/certs
-email    (env)     : SSL_EMAIL
-rename        : true 
+name                         : Custom ssl Generator for coolify applications
+cert_dirs   (env)            : CERT_DIR
+email       (env)            : SSL_EMAIL
+rename                       : true   

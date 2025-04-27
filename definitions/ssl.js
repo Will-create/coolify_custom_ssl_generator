@@ -1,8 +1,8 @@
 FUNC.generate_ssl = async function(domain) { 
 
     return new Promise((resolve, reject) => {
-        if (!F.Fs.existsSync(CONF.cert_dirs)) 
-            F.Fs.mkdirSync(CONF.cert_dirs, { recursive: true });
+        if (!F.Fs.existsSync(CONF.cert_dirs || '/data/coolify/proxy/certs')) 
+            F.Fs.mkdirSync(CONF.cert_dirs || '/data/coolify/proxy/certs', { recursive: true });
 
         console.log(`Generating SSL for ${domain}...`);
 
