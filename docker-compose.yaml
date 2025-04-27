@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   ssl-generator:
     image: node:20-bullseye  # Node.js 20 + Debian Bullseye (lightweight and compatible)
@@ -9,7 +7,7 @@ services:
       - .:/app                # Map the app source code
       - /data/coolify/proxy/certs:/data/coolify/proxy/certs  # Map Coolify certs
     ports:
-      - "8000:8000"            # Expose app on port 8000
+      - "3030:3030"            # Expose app on port 8000
     command: >
       bash -c "
         apt-get update &&
