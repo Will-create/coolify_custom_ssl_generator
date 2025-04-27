@@ -1,0 +1,1 @@
+# coolify_custom_ssl_generator
