@@ -1,6 +1,6 @@
 {
-	"pid": 3848,
-	"date": "2025-04-27T22:04:50.075Z",
+	"pid": 11417,
+	"date": "2025-04-27T22:31:02.479Z",
 	"stats": [
 		{
 			"id": "",
@@ -10,33 +10,34 @@
 				"build": 5011,
 				"app": "1.0.0"
 			},
-			"pid": 3848,
+			"pid": 11417,
 			"mode": "debug",
 			"overload": 0,
-			"date": "2025-04-27T22:05:50.341Z",
-			"memory": 7.46,
-			"rm": 0,
+			"date": "2025-04-27T22:32:02.756Z",
+			"memory": 8.25,
+			"rm": 2,
 			"fm": 0,
 			"wm": 0,
 			"em": 0,
 			"mm": 0,
 			"om": 0,
 			"dm": 0,
-			"um": 0,
+			"um": 0.002,
 			"pm": 0,
 			"sm": 0,
 			"cm": 0,
 			"dbrm": 0,
 			"dbwm": 0,
 			"usage": 0,
-			"requests": 0,
+			"requests": 2,
 			"pending": 0,
 			"external": 0,
 			"errors": 0,
-			"timeouts": 0,
+			"timeouts": 1,
 			"online": 0,
 			"download": 0,
-			"upload": 0
+			"upload": 0.002,
+			"lasttimeout": "2025-04-27T22:31:27.752Z /generate/"
 		}
 	]
 }

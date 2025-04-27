@@ -23,6 +23,7 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
+            position: relative;
         }
 
         h1 {
@@ -64,43 +65,143 @@
             background: #4338ca;
         }
 
-        .footer {
+        .message {
             margin-top: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .footer {
+            margin-top: 30px;
             font-size: 12px;
             color: #9ca3af;
         }
-    </style>
-    <script>
-        async function generateSSL(e) {
-            e.preventDefault();
 
-            const domain = document.querySelector('input[name="domain"]').value.trim();
-            if (!domain) {
-                alert('Please enter a domain.');
-                return;
-            }
-
-            const response = await fetch('/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ domain })
-            });
-
-            const text = await response.text();
-            alert(text);
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            display: none;
         }
-    </script>
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #6366f1;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>SSL Generator</h1>
-        <form onsubmit="generateSSL(event)">
-            <input type="text" name="domain" placeholder="sub.domain.com" required>
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+        </div>
+
+        <h1>Coolify server custom ssl generator</h1>
+        <form id="sslForm">
+            <input type="text" name="domain" id="domainInput" placeholder="sub.domain.com" required>
             <button type="submit">Generate SSL</button>
         </form>
+        <div id="message" class="message"></div>
         <div class="footer">
-            Powered by Coolify + Total.js
+            Powered by Total.js
         </div>
     </div>
+
+    <script>
+        const form = document.getElementById('sslForm');
+        const domainInput = document.getElementById('domainInput');
+        const messageBox = document.getElementById('message');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        function isValidDomain(domain) {
+            // Very basic but good-enough regex for domain/subdomain validation
+            const re = /^(?!:\/\/)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,}$/;
+            return re.test(domain);
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const domain = domainInput.value.trim();
+            messageBox.style.display = 'none';
+
+            if (!domain) {
+                showMessage('Please enter a domain.', 'error');
+                return;
+            }
+
+            if (!isValidDomain(domain)) {
+                showMessage('Invalid domain format.', 'error');
+                return;
+            }
+
+            showLoading(true);
+
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ domain })
+                });
+
+                showLoading(false);
+
+                if (response.ok) {
+                    showMessage('SSL generation started successfully!', 'success');
+                    domainInput.value = '';
+                } else {
+                    const text = await response.text();
+                    showMessage(text || 'Failed to generate SSL.', 'error');
+                }
+            } catch (error) {
+                showLoading(false);
+                showMessage('An error occurred: ' + error.message, 'error');
+            }
+        });
+
+        function showMessage(text, type) {
+            messageBox.textContent = text;
+            messageBox.className = 'message ' + type;
+            messageBox.style.display = 'block';
+            setTimeout(() => {
+                messageBox.style.opacity = 1;
+            }, 50);
+        }
+
+        function showLoading(show) {
+            loadingOverlay.style.display = show ? 'flex' : 'none';
+        }
+    </script>
 </body>
 </html>
