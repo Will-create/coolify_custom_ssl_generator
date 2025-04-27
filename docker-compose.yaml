@@ -16,3 +16,7 @@ services:
         node index.js
       "
     restart: unless-stopped
+    environment:
+      - SSL_EMAIL=${SSL_EMAIL}  # Email for SSL certificate registration
+      - CERT_DIR=/data/coolify/proxy/certs  # Directory for storing certificates
+      - NODE_ENV=production  # Set Node.js environment to production
