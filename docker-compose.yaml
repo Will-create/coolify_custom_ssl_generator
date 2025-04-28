@@ -2,13 +2,18 @@ services:
   ssl-generator:
     image: node:20-bullseye
     container_name: ssl-generator
-    volumes:
-      - ./:/app  # This maps your current directory to /app in the container
     working_dir: /app
+    volumes:
+      - .:/app                # Map the app source code
+      - /data/coolify/proxy/certs:/data/coolify/proxy/certs  # Map Coolify certs
+    ports:
+      - "3030:3030"
     command: >
       bash -c "
-        ls -la &&
-        cat package.json &&
+        ls -la /app &&
+        apt-get update &&
+        apt-get install -y certbot python3-certbot-nginx curl &&
         npm install &&
-        node app.js
+        npm start
       "
+    restart: unless-stopped
