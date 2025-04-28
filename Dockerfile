@@ -12,15 +12,11 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Copy application files
-
-
-COPY package.json /app
-
-# Install dependencies
-RUN npm install
-
 COPY . /app
 # Set environment variables
+
+RUN npm install
+
 ENV DOMAIN=""
 ENV EMAIL=""
 ENV CERT_DIR="/data/coolify/proxy/certs"
