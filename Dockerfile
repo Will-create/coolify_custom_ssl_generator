@@ -15,12 +15,12 @@ RUN apt-get update && apt-get install -y \
 
 
 
-COPY package*.json ./
+COPY package*.json /app
 
 # Install dependencies
 RUN npm install
 
-COPY . .
+COPY . /app
 # Set environment variables
 ENV DOMAIN=""
 ENV EMAIL=""
