@@ -1,17 +1,14 @@
 services:
   ssl-generator:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: node:20-bullseye
     container_name: ssl-generator
-    working_dir: /app
     volumes:
-      - ./:/app                # Map the app source code
-      - /data/coolify/proxy/certs:/data/coolify/proxy/certs  # Map Coolify certs
-    ports:
-      - "3030:3030"            # Expose port 3030
-    environment:
-      - DOMAIN=
-      - EMAIL=
-    restart: unless-stopped
-    
+      - ./:/app  # This maps your current directory to /app in the container
+    working_dir: /app
+    command: >
+      bash -c "
+        ls -la &&
+        cat package.json &&
+        npm install &&
+        node app.js
+      "
