@@ -23,18 +23,12 @@ FUNC.generate_ssl = async function(domain) {
 
 
 ON('ready', async function() { 
-    SHELL('apt-get install -y certbot', function(err, stdout, stderr) {
+    SHELL('apk add --no-cache certbot', function(err, stdout, stderr) {
         if (err) {
             console.error(`Error installing certbot: ${err}`);
         } else {
             console.log('Certbot installed successfully');
         }
     });
-    SHELL('apt-get install -y python3-certbot-nginx', function(err, stdout, stderr) {
-        if (err) {
-            console.error(`Error installing certbot nginx plugin: ${err}`);
-        } else {
-            console.log('Certbot nginx plugin installed successfully');
-        }
-    });
+
 });
