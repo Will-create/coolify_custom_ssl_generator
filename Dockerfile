@@ -13,20 +13,14 @@ RUN apt-get update && apt-get install -y \
 
 # Copy application files
 
-RUN mkdir -p controllers
-RUN mkdir -p definitions
-RUN mkdir -p views
 
 
-COPY index.js .
-COPY config .
-COPY package.json .
-COPY controllers/default.js ./controllers/
-COPY definitions/ssl.js ./definitions/
-COPY views/index.html ./views/
+COPY package*.json ./
+
 # Install dependencies
 RUN npm install
 
+COPY . .
 # Set environment variables
 ENV DOMAIN=""
 ENV EMAIL=""
