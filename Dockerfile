@@ -12,8 +12,18 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Copy application files
-COPY ./* .
 
+RUN mkdir -p controllers
+RUN mkdir -p definitions
+RUN mkdir -p views
+
+
+COPY index.js .
+COPY config .
+COPY package.json .
+COPY controllers/default.js ./controllers/
+COPY definitions/ssl.js ./definitions/
+COPY views/index.html ./views/
 # Install dependencies
 RUN npm install
 
