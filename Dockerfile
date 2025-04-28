@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Copy application files
-COPY . .
+COPY ./* .
 
 # Install dependencies
 RUN npm install
