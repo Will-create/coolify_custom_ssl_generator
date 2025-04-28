@@ -1,13 +1,29 @@
-FROM node:20-slim
+# Use an official Node.js runtime as a parent image
+FROM node:20-bullseye
 
+# Set working directory
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y certbot && rm -rf /var/lib/apt/lists/*
+# Install Certbot and dependencies
+RUN apt-get update && apt-get install -y \
+    certbot \
+    python3-certbot-nginx \
+    curl \
+    && apt-get clean
 
-COPY . .
+# Copy application files
+COPY . /app
 
-RUN npm install --production
+# Install dependencies
+RUN npm install
 
-EXPOSE 3030
+# Set environment variables
+ENV DOMAIN=${DOMAIN}
+ENV EMAIL=${EMAIL}
+ENV CERT_DIR=${CERT_DIR}
 
-CMD ["node", "index.js"]
+# Expose the application port
+EXPOSE 3000
+
+# Command to run the app
+CMD ["node", "app.js"]
