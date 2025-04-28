@@ -14,8 +14,7 @@ RUN apt-get update && apt-get install -y \
 # Copy application files
 
 
-
-COPY package*.json /app
+COPY package.json /app
 
 # Install dependencies
 RUN npm install
