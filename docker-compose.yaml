@@ -4,7 +4,7 @@ services:
     container_name: ssl-generator
     working_dir: /app
     volumes:
-      - .:/app                # Map the app source code
+      - ./:/app                # Map the app source code
       - /data/coolify/proxy/certs:/data/coolify/proxy/certs  # Map Coolify certs
     ports:
       - "3030:3030"            # Expose app on port 8000
