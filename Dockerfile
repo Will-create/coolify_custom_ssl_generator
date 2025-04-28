@@ -18,12 +18,12 @@ COPY . .
 RUN npm install
 
 # Set environment variables
-ENV DOMAIN=${DOMAIN}
-ENV EMAIL=${EMAIL}
-ENV CERT_DIR=${CERT_DIR}
+ENV DOMAIN=""
+ENV EMAIL=""
+ENV CERT_DIR="/data/coolify/proxy/certs"
 
 # Expose the application port
-EXPOSE 3000
+EXPOSE 3030
 
 # Command to run the app
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
